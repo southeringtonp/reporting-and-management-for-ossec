@@ -1,0 +1,167 @@
+<view template="dashboard.html">
+	<label>OSSEC Dashboard</label>
+
+	<module name="AccountBar" layoutPanel="navigationHeader"/>
+	<module name="AppBar" layoutPanel="navigationHeader"/>
+	<module name="Message" layoutPanel="messaging">
+		<param name="filter">*</param>
+		<param name="clearOnJobDispatch">False</param>
+		<param name="maxSize">1</param>
+	</module>
+
+	<module name="TitleBar" layoutPanel="viewHeader">
+		<param name="actionsMenuFilter">dashboard</param>
+	</module>
+	
+		
+	<!-- Search Controls -->
+	<module name="SearchSelectLister" layoutPanel="splSearchControls-inline">
+		<param name="settingToCreate">host_setting</param>
+		<param name="search">|inputlookup lookup_ossec_servers</param>
+		<param name="label">OSSEC Server</param>
+		<param name="searchFieldsToDisplay">
+			<list>
+				<param name="label">description</param>
+				<param name="value">host</param>
+			</list>
+		</param>
+		<module name="ConvertToIntention">
+			<param name="settingToConvert">host_setting</param>
+			<param name="intention">
+				<param name="name">stringreplace</param>
+				<param name="arg">
+					<param name="host_setting">
+						<param name="value">$target$</param>
+					</param>
+				</param>
+			</param>
+			
+			<module name="TimeRangePicker" layoutPanel="splSearchControls-inline">
+				<param name="selected">Last 60 Minutes</param>
+				<param name="searchWhenChanged">True</param>
+				
+				<!-- Event Timeline -->
+				<module name="HiddenSearch" layoutPanel="panel_row1_col1">
+					<module name="GenericHeader"><param name="label">OSSEC - Top Actions Over Time</param></module>
+					<module name="JobProgressIndicator" />
+					<param name="search">host=$host_setting$ eventtype="ossec" NOT tag::eventtype=noise | timechart count by action</param>
+					<param name="autoRun">true</param>
+					<module name="HiddenChartFormatter">						
+						<param name="chart">area</param>
+						<param name="chart.stackMode">stacked</param>
+						<module name="FlashChart">
+							<param name="height">230px</param>
+							<param name="width">100%</param>
+							<module name="ViewRedirectorLink">
+								<param name="viewTarget">flashtimeline</param>
+								<param name="label">View full results</param>
+							</module>
+						</module>
+					</module>
+				</module>
+				
+				<!-- Top Actions -->
+				<module name="HiddenSearch" layoutPanel="panel_row2_col1">
+					<param name="search">host=$host_setting$ eventtype=ossec NOT tag::eventtype=noise | top action limit=10</param>
+					<param name="autoRun">true</param>
+											
+					<!-- Top Actions Chart -->
+					<module name="GenericHeader"><param name="label">OSSEC - Top Actions</param></module>
+					<module name="JobProgressIndicator" />
+					<module name="HiddenChartFormatter">						
+						<param name="chart">pie</param>
+						<module name="FlashChart" >
+							<param name="width">100%</param>
+							<param name="height">230px</param>
+							<module name="ViewRedirectorLink">
+								<param name="viewTarget">flashtimeline</param>
+								<param name="label">View full results</param>
+							</module>
+						</module>
+					</module>
+					
+					<!-- Top Actions Table -->
+					<module name="SimpleResultsTable"  layoutPanel="panel_row2_col2" />
+				</module>
+
+				
+				<!-- Top Severities -->
+				<module name="HiddenSearch" layoutPanel="panel_row3_col1">
+					<param name="autoRun">true</param>
+					<param name="search">host=$host_setting$ eventtype=ossec NOT tag::eventtype=noise | top severity limit=10</param>
+										
+					<!-- Top Source IP Chart -->
+					<module name="GenericHeader"><param name="label">OSSEC - Top Severities</param></module>
+					<module name="JobProgressIndicator" />
+					<module name="HiddenChartFormatter">
+						<param name="chart">pie</param>
+						<module name="FlashChart" >
+							<param name="width">100%</param>
+							<param name="height">230px</param>
+							<module name="ViewRedirectorLink">
+								<param name="viewTarget">flashtimeline</param>
+								<param name="label">View full results</param>
+							</module>
+						</module>
+					</module>
+					
+					<!-- Top Source IP Table -->
+					<module name="SimpleResultsTable"  layoutPanel="panel_row3_col2" />
+				</module>
+				
+				
+				
+				<!-- Top Reporting Hosts -->
+				<module name="HiddenSearch" layoutPanel="panel_row4_col1">
+					<param name="autoRun">true</param>
+					<param name="search">host=$host_setting$ eventtype=ossec NOT tag::eventtype=noise | top reporting_host limit=10</param>
+											
+					<!-- Top Hosts Chart -->
+					<module name="GenericHeader"><param name="label">OSSEC - Top Reporting Hosts</param></module>
+					<module name="JobProgressIndicator" />
+					<module name="HiddenChartFormatter">
+						<param name="chart">pie</param>
+						<module name="FlashChart" >
+							<param name="width">100%</param>
+							<param name="height">230px</param>
+							<module name="ViewRedirectorLink">
+								<param name="viewTarget">flashtimeline</param>
+								<param name="label">View full results</param>
+							</module>
+						</module>
+					</module>
+					
+					<!-- Top Hosts Table -->
+					<module name="SimpleResultsTable"  layoutPanel="panel_row4_col2" />
+				</module>					
+				
+
+
+				<!-- Top Users -->
+				<module name="HiddenSearch" layoutPanel="panel_row5_col1">
+					<param name="autoRun">true</param>
+					<param name="search">host=$host_setting$ eventtype=ossec NOT tag::eventtype=noise | top user limit=10</param>
+											
+					<!-- Top Users Chart -->
+					<module name="GenericHeader"><param name="label">OSSEC - Top Users</param></module>
+					<module name="JobProgressIndicator" />
+					<module name="HiddenChartFormatter">
+						<param name="chart">pie</param>
+						<module name="FlashChart" >
+							<param name="width">100%</param>
+							<param name="height">230px</param>
+							<module name="ViewRedirectorLink">
+								<param name="viewTarget">flashtimeline</param>
+								<param name="label">View full results</param>
+							</module>
+						</module>
+					</module>
+					
+					<!-- Top Users Table -->
+					<module name="SimpleResultsTable"  layoutPanel="panel_row5_col2" />
+				</module>	
+				
+			</module>
+		</module>		
+	</module>
+</view>

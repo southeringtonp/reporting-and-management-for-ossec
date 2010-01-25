@@ -1,0 +1,63 @@
+<form>
+	<label>OSSEC Event Search</label>
+	
+	<searchTemplate>eventtype=ossec ossec_server=$ossec_server$ reporting_host=$reporting_host$ ossec_group=$ossec_group$ severity>=$severity$ | fields $field_list$</searchTemplate>
+	
+	<fieldset>
+		<input type="dropdown" token="ossec_server">
+			<label>OSSEC Server</label>
+			<populatingSearch fieldForValue="host" fieldForLabel="description"><![CDATA[ | inputlookup lookup_ossec_servers ]]></populatingSearch>
+		</input>
+		
+		<input type="dropdown" token="ossec_group">
+			<label>OSSEC Rule Group</label>
+			<choice value="*">All Rule Groups</choice>
+			<populatingSearch fieldForValue="ossec_group" fieldForLabel="ossec_group"><![CDATA[ | inputlookup lookup_ossec_group | dedup ossec_group | sort ossec_group ]]></populatingSearch>
+		</input>
+		
+		<input type="text" token="reporting_host">
+			<label>Reporting Host</label>
+			<seed>*</seed>
+		</input>
+		
+		<input type="dropdown" token="severity">
+			<label>Min. Severity</label>
+			<default>4</default>
+			<choice>0</choice>
+			<choice>1</choice>
+			<choice>2</choice>
+			<choice>3</choice>
+			<choice>4</choice>
+			<choice>5</choice>
+			<choice>6</choice>
+			<choice>7</choice>
+			<choice>8</choice>
+			<choice>9</choice>
+			<choice>10</choice>
+			<choice>11</choice>
+			<choice>12</choice>
+			<choice>13</choice>
+			<choice>14</choice>
+			<choice>15</choice>
+		</input>
+		
+		<input type="dropdown" token="field_list">
+			<label>Show Raw Message</label>
+			<default>No</default>
+			<choice value="ossec_server, reporting_host, severity, ossec_group, action">No</choice>
+			<choice value="ossec_server, reporting_host, severity, ossec_group, rule_number, action, message">Yes</choice>
+		</input>
+		
+		<input type="time">
+			<default>Last 60 minutes</default>
+		</input>
+	</fieldset>
+	
+	<row>
+		<table>
+			<title>OSSEC Events</title>
+			<option name="showPager">True</option>
+			<option name="count">10</option>
+		</table>
+	</row>
+</form>

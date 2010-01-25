@@ -1,0 +1,118 @@
+
+Overview
+-----------------------------------------------------------
+
+This package contains parsing logic, saved searches, and
+dashboards for monitoring the OSSEC Host-based Intrusion
+Detection System via Splunk.
+
+Please read the Installation section below - the app
+WILL NOT WORK without configuration.
+
+This app is maintained by Paul Southerington.
+
+
+
+Installation
+-----------------------------------------------------------
+
+To install, extract the .tgz archive in $SPLUNK_HOME/etc/apps
+
+You will need to enable the appropriate inputs, either via
+inputs.conf, or through the Manager in the Splunk GUI.
+
+If you wish to monitor agent status, you may need to modify
+the settings in bin/ossec_status.sh.  See that file, as well
+as the description below.
+
+The application maintains a list of all known OSSEC servers
+in a lookup table. When you first install, this list will
+be empty. You can wait until it is populated automatically,
+or run the [OSSEC - Rebuild OSSEC Server Lookup Table] saved
+search to regenerate it automatically.
+
+
+
+Data Inputs
+-----------------------------------------------------------
+
+Sample input declarations are included with the application,
+but are disabled by default. These may be enabled either
+in inputs.conf, or via the Manager.
+
+Several data input methods are available:
+   
+   1) Native syslog daemon, writing to flat files which
+      are indexed by Splunk
+
+   2) Syslog-style input directly to Splunk, listening
+      on a UDP port (this is the method often used by the
+      Splunk for OSSEC 3.x application)
+
+   3) Direct monitoring of OSSEC alert logs. Typically
+      requires Splunk to be installed on the OSSEC server.
+
+   4) Scripted input to periodically check the status of
+      OSSEC agents by running ossec_agent_control -l,
+      either locally or on a remote system.
+
+For options (1) and (2), set the sourcetype to 'ossec'.
+For option (3), set the sourcetype to 'ossec_alerts'.
+For option (4), set the sourcetype to 'ossec_agent_control'.
+
+
+
+
+
+
+Remote Collection of OSSEC agent operational status:
+-----------------------------------------------------------
+
+To enable remote collection of OSSEC agent status, you will
+need to do the following:
+
+    1) Create a unix user account for splunk on the OSSEC server.
+
+    2) Create an ssh keypair allowing the Splunk server to log in
+       without a password.
+
+    3) Place the ssh private key on the Splunk server in a secure
+       location.
+
+    4) Set privileges to allow the user access to OSSEC, or
+       add the following line to /etc/sudoers:
+            splunk	ALL = NOPASSWD: /var/ossec/bin/agent_control -l
+
+	Don't forget that sudoers is picky about whitespace.
+
+    5) On the splunk server, edit the scripted input, setting the
+       appropriate values for $SSH_KEY_FILE, $OSSEC_SERVER, and $OSSEC_USER
+       The file to edit should be at:
+               $SPLUNK_HOME/etc/apps/bin/ossec_status.sh
+
+    6) Run the script once manually to test. This will also give you the
+       chance to accept the server's private key. You will need to do this
+       under the account that the Splunk server is using.
+
+    7) Enable the scripted input in Splunk (web gui or inputs.conf)
+
+
+
+Field Mappings
+-------------------------------------
+
+These need work, and may be subject to change. Ultimately,
+we need to conform to the Splunk Common Information Model.
+
+OSSEC           Splunk
+--------        ------------
+Level           Severity
+User            User
+Src IP          reporting_ip or src_ip
+Rule            rule_number
+Category        ossec_group
+Server		ossec_server or host
+message         (no direct equivalent; use _raw)
+
+
+

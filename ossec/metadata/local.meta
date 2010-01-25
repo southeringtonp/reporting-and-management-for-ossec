@@ -1,0 +1,10 @@
+
+[views/OSSEC_Operational_Status]
+access = read : [ * ], write : [ admin ]
+export = system
+owner = southeringtonp
+
+[savedsearches/OSSEC%20-%20Last%20Checkin%20Tracker]
+access = read : [ * ], write : [ admin ]
+export = system
+owner = southeringtonp

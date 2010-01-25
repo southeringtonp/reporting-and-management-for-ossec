@@ -1,0 +1,45 @@
+
+Parsing / Transform Issues:
+
+  - The 'host' field in Splunk contains the name or IP address of the 
+    OSSEC server. The host on which the event occurred is parsed into
+    'reporting_host'. This is by design, but we may wish to continue
+    overriding the value of 'host'. This needs further thought, since
+    in Splunk 'host' is an indexed field and 'reporting_host' is not.
+    The 'ossec_server' field should always contain the server's
+    name, even if we decide to remap the 'host' field.
+
+
+Dashboard Issues:
+
+  - Field layout on the Event Search is messy.
+
+  - The File Integrity dashboard populated the dropdown list of
+    reporting hosts based on those seen in the last day. Low-activity
+    servers may not appear in the list.
+
+  - Sometimes the main Dashboard doesn't properly populate the host
+    selection for all graphs. Changing to a different server and back
+    or refreshing the page may resolve this in the short term. This
+    appears to be a Splunk issue rather than a problem with the
+    dashboard itself.
+
+
+Input issues:
+
+  - When using scripted inputs to monitor a remote OSSEC server, the
+    'host' field will always show the local server name. To fix this,
+    set the host explicitly in inputs.conf, and use a distinct copy
+    of the input script for each server that you want to poll.
+
+  - Remote monitoring of agent status may need sudo to work correctly.
+    TBD - Identify whether this can be made to work without elevated
+    privileges. These connections may also trigger OSSEC alerts.
+
+  - No testing has been done for installations using agentless monitoring.
+
+
+Saved Searches:
+
+  - Several searches show errors under Splunk 4.0.6. This may be a Splunk
+    problem. If you encounter problems, try upgrading to 4.0.7 or higher.
