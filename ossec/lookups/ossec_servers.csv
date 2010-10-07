@@ -1,2 +1,2 @@
-host,description
-"*","All OSSEC servers"
+"ossec_server",description,managed
+"*","All OSSEC Servers",0

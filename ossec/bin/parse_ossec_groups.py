@@ -8,7 +8,7 @@
 ############################################################
 ############################################################
 #
-# This outputs two files:
+# This may output two files:
 #
 #   1)  ossec_rule_groups.csv
 #       ---------------------
@@ -31,7 +31,7 @@ import re
 import sys
 
 
-# What 
+# Path to the OSSEC rules directory, e.g., /var/ossec/rules/
 OSSEC_RULES_DIR = "/var/ossec/rules/"
 
 
@@ -79,8 +79,8 @@ for filename in os.listdir(OSSEC_RULES_DIR):
 			# End of a rule section - fill the dictionaries
 			rule_to_groups[rule_id] = globalGroups + localGroups
 
-			for group in (globalGroups + localGroups):
-				group = group.strip()
+			for xgroup in (globalGroups + localGroups):
+				group = xgroup.strip()
 				if group in group_to_rules.keys():
 					# Add to existing entry
 					group_to_rules[group].append(rule_id)
@@ -105,7 +105,7 @@ for filename in os.listdir(OSSEC_RULES_DIR):
 				globalGroups = m.group(1).strip(",").split(",")
 				continue
 
-			# Is this a local gorup setting?
+			# Is this a local group setting?
 			m = re_local_group.match(l)
 			if m != None:
 				localGroups = localGroups + m.group(1).strip(",").split(",")
@@ -116,11 +116,11 @@ for filename in os.listdir(OSSEC_RULES_DIR):
 if OUTPUT_LOOKUP_TABLE != None:
 	sorted = rule_to_groups.keys()
 	sorted.sort()
-	f = open("rule_group_lookup.csv", "w")
+	f = open(OUTPUT_LOOKUP_TABLE, "w")
 	print >>f, '"rule_number","ossec_group"'
 	for rule_id in sorted:
 		for group in rule_to_groups[rule_id]:
-			print >>f, '"' + rule_id +'","' + group + '"'
+			print >>f, '"' + rule_id.strip() +'","' + group.strip() + '"'
 		
 
 
@@ -135,7 +135,7 @@ if OUTPUT_EVENTTYPES != None:
 	print >>f, "############################################################"
 	print >>f
 	for group in sorted:
-		eventtype = "[ossec_" + group + "]"
+		eventtype = "[ossec_" + group.strip() + "]"
 		search = " OR rule_number=".join(group_to_rules[group])
 		search = "search=sourcetype=ossec (rule_number=" + search + ")"
 

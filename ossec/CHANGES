@@ -1,0 +1,93 @@
+Version 1.1.75
+---------------------------------------
+
+- Updated rule group lookup table to match OSSEC 2.5 ruleset
+
+- Increased results shown on agent management dashboard from 10 to 15
+
+- Modified Event Search view to better handle events with no ossec_group.
+
+- Fixed issue with ossec_group field extraction when using ossec-alerts sourcetype.
+
+- Removed extra divider from Utilities nav menu
+
+- pyOSSEC cleanup and fixes:
+    - Implemented support for disabling configuration stanzas
+    - Normalized whitespace
+
+
+
+Version 1.1.74
+---------------------------------------
+
+- Set default descriptions in ossec_servers lookup table.
+
+- Agent management bugfixes
+
+- Removed dnspython dependency from malware check script
+
+- Added screenshot image
+
+
+Version 1.1.68
+---------------------------------------
+
+- Moved [OSSEC - High-Severity Alert] to correct menu location
+
+- Fixed connection issue when MANAGE_AGENTS was configured, but blank
+
+- Removed extra comma from extracted host field in manage_agents
+
+- Commented out scripted search block for old agent management message
+
+- Hid summary index generating searches from menu tree
+
+- Added [package] stanza for app id
+
+
+
+Version 1.1
+---------------------------------------
+
+- Splunk 4.1.x is now required.
+
+- Splunk for OSSEC is now runnable directly as an app, rather
+  than just as a plugin for Search. This is now the preferred
+  approach.
+
+- New functionality added to check file hashes against the
+  Team Cymru Malware Hash Registry. This can be configured
+  to act as a schedueld alert.
+
+- New functionality added to allow limited management of agents
+  directly through the Splunk server. By default, access is
+  restricted to Splunk admins and those with the OSSEC Admin role.
+
+- The 'host' field now contains the OSSEC Agent machine's name
+  by default. See the samples/ directory for information on
+  restoring the old behaviour.
+
+- Polling of agent status is now handled by a single script
+  driven by ossec_servers.conf, rather than requiring a separate
+  shell script for each OSSEC server.
+
+- Various performance improvements.
+
+- CSS Layout improvements.
+
+- Summary indexing is now enabled.
+
+- Automatic lookup table regeneration now uses summary data.
+
+- Use of 'action' field is deprecated in favor of 'signature'.
+  For now, both fields will contain the same information.
+
+- Default mappings from signature ID to signature group have
+  been refreshed based on OSSEC 2.4.1
+
+- The lookup table containing the list of OSSEC servers has an
+  additional field to indicate whether it is "managed". This
+  determines which servers are visible on the agent management
+  dashboard.
+
+
