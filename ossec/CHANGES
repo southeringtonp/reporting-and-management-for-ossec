@@ -1,3 +1,13 @@
+Version 1.1.77
+---------------------------------------
+
+- Added Event Renderer for high-severity events (modify the eventtype to tune threshold)
+
+- Better handling of agent management connection errors
+
+- Increased default timeouts on agent connection
+
+
 Version 1.1.75
 ---------------------------------------
 

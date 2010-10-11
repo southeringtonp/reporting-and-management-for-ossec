@@ -235,6 +235,10 @@ class OSSECNotFoundError(OSSECError):
     """Raised when trying to perform an operation on a non-existent name or ID"""
     pass
 
+class OSSECTimeoutError(OSSECError):
+    """Raised when a timeout occurs"""
+    pass
+
 class OSSECPasswordError(OSSECError):
     """
     Raised when an unexpected password prompt is encountered,
@@ -353,11 +357,35 @@ class OSSECServer():
         if self.cfg['MANAGE_AGENTS'] == '':
             raise OSSECNotConfiguredError('No manage agents process defined for this server')
         self.lock()
-        self.c = pexpect.spawn(self.cfg['MANAGE_AGENTS'], timeout=5)
-        self.c.expect_exact('Choose your action:')
-        self.connected = True
-        self.cache_agents()
-
+        self.c = pexpect.spawn(self.cfg['MANAGE_AGENTS'], timeout=30)
+        
+        # Check for common connection problems
+        try:
+            firstLine = self.c.readline()
+        except pexpect.TIMEOUT:
+            raise OSSECError('Timeout occurred waiting for first line of connection response.')
+            
+        l = firstLine.lower().strip()
+        if l.find('password') >= 0:
+            raise OSSECPasswordError(firstLine)
+        elif l.find('ssh') >= 0 or l.find('sudo') >= 0:
+            raise OSSECError(firstLine)
+            
+        try:
+            z = self.c.expect_exact(['Choose your action:','password','Password'], 20)
+        except pexpect.TIMEOUT:
+            raise OSSECTimeoutError('Timed out: ' + str(firstLine))
+        
+        if z == 0:
+            # Normal/expected result
+            self.connected = True
+            self.cache_agents()
+            return
+        elif z == 1:
+            raise OSSECNotConfiguredError('Password prompt encountered (possibly ssh password)')
+        elif z == 2:
+            raise OSSECNotConfiguredError('Password prompt encoutnered (possibly sudo password)')
+            
 
     def cache_agents(self):
         """

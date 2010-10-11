@@ -18,7 +18,6 @@ from pyOSSEC import *
 ##	pos = user.find('</userId>')
 ##	user = user[:pos]
 
-
 SCRIPT_ARGS = {
         'ossec_server':  ''
 }

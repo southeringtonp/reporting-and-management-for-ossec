@@ -75,3 +75,10 @@ label {
 	*/
 }
 
+
+
+/* Event Renderers */
+.splEvent-OssecHighSeverity table {
+    border: solid red 1px;
+}
+        
