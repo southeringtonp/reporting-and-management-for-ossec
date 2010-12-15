@@ -1,3 +1,12 @@
+Version 1.1.78
+---------------------------------------
+
+- Stripped out explanatory text on Microsoft-Windows-Security-Auditing events
+     ("This event is generated when...")
+
+- Extracted EventCode, LogName, SourceName, and Type for Windows events
+
+
 Version 1.1.77
 ---------------------------------------
 
