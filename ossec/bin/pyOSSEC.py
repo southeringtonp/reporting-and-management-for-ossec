@@ -322,8 +322,13 @@ class OSSECServer():
         """
         if 'AGENT_CONTROL' not in self.cfg:
             raise OSSECNotConfiguredError('AGENT_CONTROL not configured for this server')
+        cmd = self.cfg['AGENT_CONTROL']
 
-        p = pexpect.spawn(self.cfg['AGENT_CONTROL'], timeout=5)
+        # Temp - For backwards compatibility, check for an remove an extra '-l' parameter
+        cmd = cmd.replace('-l', '').strip()
+
+        cmd += ' -l'
+        p = pexpect.spawn(cmd, timeout=5)
         z = p.expect([ 'ID:(.*)List of agentless devices:', '(?i)password' ] )
         if z == 1:
             p.close()
@@ -422,6 +427,30 @@ class OSSECServer():
             self.agent_ids.append(agent[0])
             self.agent_names.append(agent[1].lower())
 
+
+    def agent_detail(self, id, raw=False):
+        """
+        Get extended agent information.
+        """
+        if 'AGENT_CONTROL' not in self.cfg:
+            raise OSSECNotConfiguredError('AGENT_CONTROL not configured for this server')
+
+        if not raw:
+            raise NotImplementedError('Agent info is only implemented for raw output mode.')
+        
+        cmd = self.cfg['AGENT_CONTROL']
+        # Temp - For backwards compatibility, check for an remove an extra '-l' parameter
+        cmd = cmd.replace('-l', '').strip()
+        cmd += ' -s -i ' + str(id)
+        output = pexpect.run(cmd)
+        
+        firstLine = output.split('\n')[0].strip()
+        fields = firstLine.split(',')
+        if fields[0] != agent_id:
+            raise OSSECError('Unexpected output from agent_control')
+
+        return firstLine
+            
         
     def extract_key(self, agent_id):
         """
@@ -484,7 +513,7 @@ class OSSECServer():
 
         self.c.sendline('A')
 
-                # Agent Name
+        # Agent Name
         self.c.expect_exact('name for the new agent:')
         z = self.c.sendline(agent_name)
         z = self.c.expect_exact(['IP Address of the new agent', 'already present', 'Invalid name'])
@@ -580,11 +609,16 @@ if __name__ == "__main__":
     server = OSSECServer('nsecdata')
     server.agent_status()
 
-    sys.exit()
-
     print 'Connected to server'
     server.cache_agents()
     print 'Cached agents'
+
+    for (agent_id, agent_name, agent_ip) in server.agents:
+        print (agent_id, agent_name, agent_ip)
+        print server.agent_detail(agent_id, True)
+
+
+
 
     sys.exit()
     for id in server.agent_ids:
