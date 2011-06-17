@@ -1,3 +1,19 @@
+Version 1.1.88
+---------------------------------------
+
+- Added indexing of ossec.log file when Splunk is installed on the
+  OSSEC server.
+
+- Added saved search to re-initialize ossec server lookup table
+
+- Bugfixes / parsing improvements when working with local alerts file
+  (when Splunk is installed directly on the OSSEC server)
+
+- Improved suppression of Windows event explanatory text when working
+  with local alerts file (Splunk installed directly on OSSEC server)
+
+
+
 Version 1.1.85
 ---------------------------------------
 

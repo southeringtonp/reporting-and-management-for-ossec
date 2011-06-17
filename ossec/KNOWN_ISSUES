@@ -39,6 +39,11 @@ Input issues:
     TBD - Identify whether this can be made to work without elevated
     privileges. These connections may also trigger OSSEC alerts.
 
+  - Assigning the 'host' field to contain the 'ossec_server' value
+    does not work when directly indexing the alerts.log file, because
+    alerts in this file do not record the name of the OSSEC server.
+
+
 
 Agent Management Issues:
 
