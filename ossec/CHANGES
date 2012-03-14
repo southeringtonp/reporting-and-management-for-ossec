@@ -1,3 +1,18 @@
+Version 1.1.89
+---------------------------------------
+
+- Fixed a bug in ossec_agent_status that could prevent agent status polling
+  from working correctly in certain configurations.
+
+- Increased timeout on agent status polling from 5 to 30 seconds
+
+- Updated rule group lookup table with rules from latest OSSEC build on
+  BitBucket.
+
+- Removed unused Intersplunk dependency from pyOSSEC to ease command-line
+  testing.
+
+
 Version 1.1.88
 ---------------------------------------
 

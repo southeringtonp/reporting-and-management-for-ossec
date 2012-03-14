@@ -4,7 +4,7 @@
 # Python abstraction library for OSSEC Agent Management
 #
 # Written as part of Splunk for OSSEC,
-# Copyright (c) 2010-2011, Paul Southerington
+# Copyright (c) 2010-2012, Paul Southerington
 #
 ############################################################
 import sys
@@ -12,13 +12,13 @@ import os
 import fcntl
 import socket
 import logging
-import splunk.Intersplunk as si
 
 sys.path.append('../3rdparty/pexpect-2.3')
 sys.path.append('./3rdparty/pexpect-2.3')
 if 'SPLUNK_HOME' in os.environ:
         sys.path.append(os.environ['SPLUNK_HOME'] + '/etc/apps/ossec/3rdparty/pexpect-2.3')
 import pexpect
+
 
 
 
@@ -325,10 +325,10 @@ class OSSECServer():
         cmd = self.cfg['AGENT_CONTROL']
 
         # Temp - For backwards compatibility, check for an remove an extra '-l' parameter
-        cmd = cmd.replace('-l', '').strip()
+        cmd = cmd.strip().rstrip('-l')
 
         cmd += ' -l'
-        p = pexpect.spawn(cmd, timeout=5)
+        p = pexpect.spawn(cmd, timeout=30)
         z = p.expect([ 'ID:(.*)List of agentless devices:', '(?i)password' ] )
         if z == 1:
             p.close()
@@ -605,32 +605,37 @@ class OSSECServer():
 
 
 if __name__ == "__main__":
+    if os.uname()[0] not in ('pstest'):
+        print
+        print 'This module is a library and not intended to be run directly.'
+        print
+        sys.exit()
 
-    server = OSSECServer('nsecdata')
-    server.agent_status()
+    else:
+        # Misc testing - ignore.
 
-    print 'Connected to server'
-    server.cache_agents()
-    print 'Cached agents'
+        server = OSSECServer('ossec_server')
+        server.agent_status()
 
-    for (agent_id, agent_name, agent_ip) in server.agents:
-        print (agent_id, agent_name, agent_ip)
-        print server.agent_detail(agent_id, True)
+        print 'Connected to server'
+        server.cache_agents()
+        print 'Cached agents'
 
+        for (agent_id, agent_name, agent_ip) in server.agents:
+            print (agent_id, agent_name, agent_ip)
+            print server.agent_detail(agent_id, True)
 
-
-
-    sys.exit()
-    for id in server.agent_ids:
-        print id, '\t', server.extract_key(id)
-    print server.agent_ids
-    print server.add_agent('TestAgent2', '127.0.0.1', '100')
-    print server.add_agent('TestAgent2', '127.0.0.1', '100')
-    print server.add_agent('TestAgent2', '127.0.0.1', '100')
-    print server.remove_agent('100')
-    print server.add_agent('TestAgent2', '127.0.0.1', '100')
-    server.cache_agents()
-    for agent in server.agents:
-        print agent
+        sys.exit()
+        for id in server.agent_ids:
+            print id, '\t', server.extract_key(id)
+        print server.agent_ids
+        print server.add_agent('TestAgent2', '127.0.0.1', '100')
+        print server.add_agent('TestAgent2', '127.0.0.1', '100')
+        print server.add_agent('TestAgent2', '127.0.0.1', '100')
+        print server.remove_agent('100')
+        print server.add_agent('TestAgent2', '127.0.0.1', '100')
+        server.cache_agents()
+        for agent in server.agents:
+            print agent
 
 

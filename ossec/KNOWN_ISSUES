@@ -27,7 +27,7 @@ User Interface Issues:
 
   - By default, UI elements are scoped globally and may appear in
     menus for other apps. This is by design, as the app was originally
-    written as a plugin to search, but may change in the future.
+    written as a plugin to search, but will likely change in the future.
 
   - Machine counts across the top of the Agent Coverage view
     may be difficult to read, depending on the background color.
@@ -55,4 +55,5 @@ Agent Management Issues:
   - Agent management commands cannot be configured through the GUI.
     This is by design, to reduce the risk of system compromise by
     arbitrary commands being run by the Splunk server as root.
+
 

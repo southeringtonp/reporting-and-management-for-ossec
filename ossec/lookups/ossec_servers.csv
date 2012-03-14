@@ -1,2 +1,2 @@
-"ossec_server",description,managed
-"*","All OSSEC Servers",0
+description,managed,"ossec_server"
+"All OSSEC Servers",0,"*"
