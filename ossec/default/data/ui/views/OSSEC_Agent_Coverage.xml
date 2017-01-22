@@ -5,7 +5,7 @@
 	<module name="AppBar" layoutPanel="navigationHeader"/>
 	<module name="Message" layoutPanel="messaging">
 		<param name="filter">splunk.search.error</param>
-		<param name="clearOnJobDispatch">False</param>
+		<param name="clearOnJobDispatch">false</param>
 		<param name="maxSize">1</param>
 	</module>
 
@@ -21,7 +21,7 @@
 		<module name="SingleValue">
 			<param name="field">count</param>
 			<param name="classField">range</param>
-			<param name="linkView">flashtimeline</param>
+			<param name="linkView">search</param>
 			<param name="linkSearch"><![CDATA[ | inputlookup lookup_ossec_expected | lookup lookup_ossec_last_checkin reporting_host | eval days_ago=round((now()-last_checkin)/86400) | search days_ago > 7]]></param>
 		</module>
 
@@ -29,7 +29,7 @@
 		<module name="SingleValue" layoutPanel="panel_row1_col2">
 			<param name="field">covered</param>
 			<param name="classField">range</param>
-			<param name="linkView">flashtimeline</param>
+			<param name="linkView">search</param>
 			<param name="linkSearch"><![CDATA[ | inputlookup lookup_ossec_expected | lookup lookup_ossec_last_checkin reporting_host | eval days_ago=round((now()-last_checkin)/86400) | search days_ago <= 7 ]]></param>
 		</module>
 
@@ -38,7 +38,7 @@
 			<param name="field">percent</param>
 			<param name="afterLabel">%</param>
 			<param name="classField">range</param>
-			<param name="linkView">flashtimeline</param>
+			<param name="linkView">search</param>
 			<param name="linkSearch"><![CDATA[ | inputlookup lookup_ossec_expected | lookup lookup_ossec_last_checkin reporting_host | eval days_ago=round((now()-last_checkin)/86400) | search days_ago <= 7 ]]></param>
 		</module>
 	</module>
@@ -52,13 +52,13 @@
 		<module name="JobProgressIndicator" />
 		<module name="HiddenChartFormatter">						
 			<param name="chart">pie</param>
-			<module name="FlashChart">
+			<module name="JSChart">
 				<param name="maxRowsForTop">10</param>
 				<param name="width">100%</param>
 				<param name="height">230px</param>
 				<module name="ConvertToDrilldownSearch">
 					<module name="ViewRedirector">
-						<param name="viewTarget">flashtimeline</param>
+						<param name="viewTarget">search</param>
 					</module>
 				</module>
 			</module>
@@ -70,12 +70,12 @@
 			<param name="drilldown">row</param>
 			<module name="ConvertToDrilldownSearch">
 				<module name="ViewRedirector">
-					<param name="viewTarget">flashtimeline</param>
+					<param name="viewTarget">search</param>
 				</module>
 			</module>
 		</module>
 		<module name="ViewRedirectorLink" layoutPanel="panel_row2_col2">
-			<param name="viewTarget">flashtimeline</param>
+			<param name="viewTarget">search</param>
 			<param name="label">View full results</param>
 		</module>
 	</module>
@@ -90,7 +90,7 @@
 			<param name="entityName">results</param>
 			<module name="SimpleResultsTable" />
 			<module name="ViewRedirectorLink">
-				<param name="viewTarget">flashtimeline</param>
+				<param name="viewTarget">search</param>
 				<param name="label">View full results</param>
 			</module>
 		</module>

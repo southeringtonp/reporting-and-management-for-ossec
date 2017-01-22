@@ -1,11 +1,12 @@
 <nav>
-	<view name="flashtimeline" default='true' />
+	<view name="search" default='true' />
 	<collection label="Dashboards &amp; Views">
 		<view name="OSSEC_Agent_Coverage" />
 		<view name="OSSEC_Agent_Status" />
 		<divider />
 		<view name="OSSEC_Dashboard" />
 		<view name="OSSEC_Summary_Dashboard" />
+		<view name="OSSEC_Event_Map" />
 		<view name="OSSEC_Event_Search" />
 		<view name="OSSEC_File_Integrity" />
 		<divider />

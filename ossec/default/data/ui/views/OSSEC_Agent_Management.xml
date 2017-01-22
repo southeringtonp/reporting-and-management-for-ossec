@@ -167,13 +167,13 @@
                                                 
                                                     <module name="EnablePreview">
                                                         <param name="enable">True</param>
-                                                        <param name="display">False</param>
+                                                        <param name="display">false</param>
                                                         <module name="SimpleResultsTable">
                                                             <param name="count">10</param>
                                                         </module>
                                                         <!--
                                                         <module name="ViewRedirectorLink">
-                                                            <param name="viewTarget">flashtimeline</param>
+                                                            <param name="viewTarget">search</param>
                                                         </module>
                                                         -->
                                                     </module>

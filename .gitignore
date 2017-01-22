@@ -2,5 +2,6 @@
 *.tmp
 *.pyc
 *.swp
+*.old
 ossec/log/*
 ossec/metadata/local.meta

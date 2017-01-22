@@ -1,5 +1,5 @@
 <form>
-  <label>OSSEC Event Search</label>
+  <label>OSSEC Event Map</label>
   <fieldset submitButton="true" autoRun="false">
     <input type="multiselect" token="ossec_server" searchWhenChanged="false">
       <label>OSSEC Server</label>
@@ -75,9 +75,22 @@
   </fieldset>
   <row>
     <panel>
+      <map>
+        <search>
+          <query>eventtype=ossec $ossec_server$ $reporting_host$ $ossec_group$ $severity$ | iplocation src_ip | geostats count by severity</query>
+          <earliest>$timerange.earliest$</earliest>
+          <latest>$timerange.latest$</latest>
+        </search>
+        <option name="height">300</option>
+        <option name="mapping.type">marker</option>
+      </map>
+    </panel>
+  </row>
+  <row>
+    <panel>
       <table>
         <search>
-          <query>eventtype=ossec $ossec_server$ $reporting_host$ $ossec_group$ $severity$ | table  _time ossec_server reporting_host severity ossec_group action $include_raw$</query>
+          <query>eventtype=ossec $ossec_server$ $reporting_host$ $ossec_group$ $severity$ | iplocation src_ip | table  _time ossec_server reporting_host severity ossec_group City Country Region action $include_raw$</query>
           <earliest>$timerange.earliest$</earliest>
           <latest>$timerange.latest$</latest>
           <sampleRatio>1</sampleRatio>

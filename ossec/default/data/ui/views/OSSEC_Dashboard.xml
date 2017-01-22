@@ -66,12 +66,12 @@
 					<module name="HiddenChartFormatter">						
 						<param name="chart">area</param>
 						<param name="chart.stackMode">stacked</param>
-						<module name="FlashChart">
+						<module name="JSChart">
 							<param name="height">230px</param>
 							<param name="width">100%</param>
 							<module name="ConvertToDrilldownSearch">
 								<module name="ViewRedirector">
-									<param name="viewTarget">flashtimeline</param>
+									<param name="viewTarget">search</param>
 								</module>							
 							</module>
 						</module>
@@ -114,14 +114,14 @@
 							<module name="JobProgressIndicator" />
 							<module name="HiddenChartFormatter">						
 								<param name="chart">pie</param>
-								<module name="FlashChart">
+								<module name="JSChart">
 									<param name="width">100%</param>
 									<param name="height">230px</param>
 									<module name="HiddenSearch" autoRun="True">
 										<param name="search">$serverName$ eventtype="ossec" NOT tag::eventtype=noise</param>
 										<module name="ConvertToDrilldownSearch">
 											<module name="ViewRedirector">
-												<param name="viewTarget">flashtimeline</param>
+												<param name="viewTarget">search</param>
 											</module>							
 										</module>
 									</module>
@@ -129,7 +129,7 @@
 								<module name="HiddenSearch" autoRun="True">
 									<param name="search">$serverName$ eventtype="ossec" NOT tag::eventtype=noise | top limit=1000 signature</param>
 									<module name="ViewRedirectorLink">
-										<param name="viewTarget">flashtimeline</param>
+										<param name="viewTarget">search</param>
 										<param name="label">View more results</param>
 									</module>
 								</module>
@@ -143,7 +143,7 @@
 									<param name="search">$serverName$ eventtype="ossec" NOT tag::eventtype=noise</param>
 									<module name="ConvertToDrilldownSearch">
 										<module name="ViewRedirector">
-											<param name="viewTarget">flashtimeline</param>
+											<param name="viewTarget">search</param>
 										</module>
 									</module>
 								</module>
@@ -177,14 +177,14 @@
 							<module name="JobProgressIndicator" />
 							<module name="HiddenChartFormatter">						
 								<param name="chart">pie</param>
-								<module name="FlashChart">
+								<module name="JSChart">
 									<param name="width">100%</param>
 									<param name="height">230px</param>
 									<module name="HiddenSearch" autoRun="True">
 										<param name="search">$serverName$ eventtype="ossec" NOT tag::eventtype=noise</param>
 										<module name="ConvertToDrilldownSearch">
 											<module name="ViewRedirector">
-												<param name="viewTarget">flashtimeline</param>
+												<param name="viewTarget">search</param>
 											</module>							
 										</module>
 									</module>
@@ -192,7 +192,7 @@
 								<module name="HiddenSearch" autoRun="True">
 									<param name="search">$serverName$ eventtype="ossec" NOT tag::eventtype=noise | top limit=1000 severity</param>
 									<module name="ViewRedirectorLink">
-										<param name="viewTarget">flashtimeline</param>
+										<param name="viewTarget">search</param>
 										<param name="label">View more results</param>
 									</module>
 								</module>
@@ -206,7 +206,7 @@
 									<param name="search">$serverName$ eventtype="ossec" NOT tag::eventtype=noise</param>
 									<module name="ConvertToDrilldownSearch">
 										<module name="ViewRedirector">
-											<param name="viewTarget">flashtimeline</param>
+											<param name="viewTarget">search</param>
 										</module>
 									</module>
 								</module>
@@ -241,14 +241,14 @@
 							<module name="JobProgressIndicator" />
 							<module name="HiddenChartFormatter">						
 								<param name="chart">pie</param>
-								<module name="FlashChart">
+								<module name="JSChart">
 									<param name="width">100%</param>
 									<param name="height">230px</param>
 									<module name="HiddenSearch" autoRun="True">
 										<param name="search">$serverName$ eventtype="ossec" NOT tag::eventtype=noise</param>
 										<module name="ConvertToDrilldownSearch">
 											<module name="ViewRedirector">
-												<param name="viewTarget">flashtimeline</param>
+												<param name="viewTarget">search</param>
 											</module>							
 										</module>
 									</module>
@@ -256,7 +256,7 @@
 								<module name="HiddenSearch" autoRun="True">
 									<param name="search">$serverName$ eventtype="ossec" NOT tag::eventtype=noise | top limit=1000 reporting_host</param>
 									<module name="ViewRedirectorLink">
-										<param name="viewTarget">flashtimeline</param>
+										<param name="viewTarget">search</param>
 										<param name="label">View more results</param>
 									</module>
 								</module>
@@ -270,7 +270,7 @@
 									<param name="search">$serverName$ eventtype="ossec" NOT tag::eventtype=noise</param>
 									<module name="ConvertToDrilldownSearch">
 										<module name="ViewRedirector">
-											<param name="viewTarget">flashtimeline</param>
+											<param name="viewTarget">search</param>
 										</module>
 									</module>
 								</module>
@@ -306,14 +306,14 @@
 							<module name="JobProgressIndicator" />
 							<module name="HiddenChartFormatter">						
 								<param name="chart">pie</param>
-								<module name="FlashChart">
+								<module name="JSChart">
 									<param name="width">100%</param>
 									<param name="height">230px</param>
 									<module name="HiddenSearch" autoRun="True">
 										<param name="search">$serverName$ eventtype="ossec" NOT tag::eventtype=noise</param>
 										<module name="ConvertToDrilldownSearch">
 											<module name="ViewRedirector">
-												<param name="viewTarget">flashtimeline</param>
+												<param name="viewTarget">search</param>
 											</module>							
 										</module>
 									</module>
@@ -321,7 +321,7 @@
 								<module name="HiddenSearch" autoRun="True">
 									<param name="search">$serverName$ eventtype="ossec" NOT tag::eventtype=noise | top limit=1000 user</param>
 									<module name="ViewRedirectorLink">
-										<param name="viewTarget">flashtimeline</param>
+										<param name="viewTarget">search</param>
 										<param name="label">View more results</param>
 									</module>
 								</module>
@@ -335,7 +335,7 @@
 									<param name="search">$serverName$ eventtype="ossec" NOT tag::eventtype=noise</param>
 									<module name="ConvertToDrilldownSearch">
 										<module name="ViewRedirector">
-											<param name="viewTarget">flashtimeline</param>
+											<param name="viewTarget">search</param>
 										</module>
 									</module>
 								</module>

@@ -57,16 +57,16 @@
 						<module name="HiddenChartFormatter">						
 							<param name="chart">area</param>
 							<param name="chart.stackMode">stacked</param>
-							<module name="FlashChart">
+							<module name="JSChart">
 								<param name="height">230px</param>
 								<param name="width">100%</param>
 								<module name="ConvertToDrilldownSearch">
 									<module name="ViewRedirector">
-										<param name="viewTarget">flashtimeline</param>
+										<param name="viewTarget">search</param>
 									</module>
 								</module>
 								<module name="ViewRedirectorLink">
-									<param name="viewTarget">flashtimeline</param>
+									<param name="viewTarget">search</param>
 									<param name="label">View full results</param>
 								</module>
 							</module>
@@ -79,16 +79,16 @@
 						<module name="HiddenChartFormatter">						
 							<param name="chart">area</param>
 							<param name="chart.stackMode">stacked</param>
-							<module name="FlashChart">
+							<module name="JSChart">
 								<param name="height">230px</param>
 								<param name="width">100%</param>
 								<module name="ConvertToDrilldownSearch">
 									<module name="ViewRedirector">
-										<param name="viewTarget">flashtimeline</param>
+										<param name="viewTarget">search</param>
 									</module>
 								</module>
 								<module name="ViewRedirectorLink">
-									<param name="viewTarget">flashtimeline</param>
+									<param name="viewTarget">search</param>
 									<param name="label">View full results</param>
 								</module>
 							</module>
@@ -101,16 +101,16 @@
 						<module name="HiddenChartFormatter">						
 							<param name="chart">area</param>
 							<param name="chart.stackMode">stacked</param>
-							<module name="FlashChart">
+							<module name="JSChart">
 								<param name="height">230px</param>
 								<param name="width">100%</param>
 								<module name="ConvertToDrilldownSearch">
 									<module name="ViewRedirector">
-										<param name="viewTarget">flashtimeline</param>
+										<param name="viewTarget">search</param>
 									</module>
 								</module>
 								<module name="ViewRedirectorLink">
-									<param name="viewTarget">flashtimeline</param>
+									<param name="viewTarget">search</param>
 									<param name="label">View full results</param>
 								</module>
 							</module>
@@ -123,16 +123,16 @@
 						<module name="HiddenChartFormatter">						
 							<param name="chart">area</param>
 							<param name="chart.stackMode">stacked</param>
-							<module name="FlashChart">
+							<module name="JSChart">
 								<param name="height">230px</param>
 								<param name="width">100%</param>
 								<module name="ConvertToDrilldownSearch">
 									<module name="ViewRedirector">
-										<param name="viewTarget">flashtimeline</param>
+										<param name="viewTarget">search</param>
 									</module>
 								</module>
 								<module name="ViewRedirectorLink">
-									<param name="viewTarget">flashtimeline</param>
+									<param name="viewTarget">search</param>
 									<param name="label">View full results</param>
 								</module>
 							</module>
@@ -154,12 +154,12 @@
 								<param name="entityName">results</param>
 								<module name="ConvertToDrilldownSearch">
 									<module name="ViewRedirector">
-										<param name="viewTarget">flashtimeline</param>
+										<param name="viewTarget">search</param>
 									</module>
 								</module>
 							</module>
 							<module name="ViewRedirectorLink">
-								<param name="viewTarget">flashtimeline</param>
+								<param name="viewTarget">search</param>
 								<param name="label">View full results</param>
 							</module>
 						</module>
@@ -252,13 +252,13 @@
 										<param name="entityName">results</param>
 										<module name="ConvertToDrilldownSearch">
 											<module name="ViewRedirector">
-												<param name="viewTarget">flashtimeline</param>
+												<param name="viewTarget">search</param>
 											</module>
 										</module>
 									</module>
 								</module>
 								<module name="ViewRedirectorLink">
-									<param name="viewTarget">flashtimeline</param>
+									<param name="viewTarget">search</param>
 									<param name="label">View full results</param>
 								</module>
 							</module>
@@ -280,13 +280,13 @@
 										<param name="entityName">results</param>
 										<module name="ConvertToDrilldownSearch">
 											<module name="ViewRedirector">
-												<param name="viewTarget">flashtimeline</param>
+												<param name="viewTarget">search</param>
 											</module>
 										</module>
 									</module>
 								</module>
 								<module name="ViewRedirectorLink">
-									<param name="viewTarget">flashtimeline</param>
+									<param name="viewTarget">search</param>
 									<param name="label">View full results</param>
 								</module>
 							</module>
@@ -308,13 +308,13 @@
 										<param name="entityName">results</param>
 										<module name="ConvertToDrilldownSearch">
 											<module name="ViewRedirector">
-												<param name="viewTarget">flashtimeline</param>
+												<param name="viewTarget">search</param>
 											</module>
 										</module>
 									</module>
 								</module>
 								<module name="ViewRedirectorLink">
-									<param name="viewTarget">flashtimeline</param>
+									<param name="viewTarget">search</param>
 									<param name="label">View full results</param>
 								</module>
 							</module>

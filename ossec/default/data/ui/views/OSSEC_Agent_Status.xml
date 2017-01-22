@@ -47,16 +47,16 @@
 				<param name="search">sourcetype="ossec_agent_control" $ossec_server$ | sort -_time | sort agent_id | stats first(status) as status by ossec_server, agent_id, reporting_host | top status</param>
 				<module name="HiddenChartFormatter">						
 					<param name="chart">pie</param>
-					<module name="FlashChart">
+					<module name="JSChart">
 						<param name="height">230px</param>
 						<param name="width">100%</param>
 						<module name="ConvertToDrilldownSearch">
 							<module name="ViewRedirector">
-								<param name="viewTarget">flashtimeline</param>
+								<param name="viewTarget">search</param>
 							</module>							
 						</module>
 						<module name="ViewRedirectorLink">
-							<param name="viewTarget">flashtimeline</param>
+							<param name="viewTarget">search</param>
 							<param name="label">View full results</param>
 						</module>
 					</module>
@@ -104,7 +104,7 @@
 					</module>
 					
 					<module name="ViewRedirectorLink">
-						<param name="viewTarget">flashtimeline</param>
+						<param name="viewTarget">search</param>
 						<param name="label">View full results</param>
 					</module>
 				</module>
@@ -131,16 +131,16 @@
 							<param name="primaryAxisTitle.text"></param>
 							<param name="charting.primaryAxisTitle.visible">False</param>
 							
-							<module name="FlashChart">
+							<module name="JSChart">
 								<param name="height">200px</param>
 								<param name="width">100%</param>
 								<module name="ConvertToDrilldownSearch">
 									<module name="ViewRedirector">
-										<param name="viewTarget">flashtimeline</param>
+										<param name="viewTarget">search</param>
 									</module>							
 								</module>
 								<module name="ViewRedirectorLink">
-									<param name="viewTarget">flashtimeline</param>
+									<param name="viewTarget">search</param>
 									<param name="label">View full results</param>
 								</module>
 							</module>

@@ -1,7 +1,8 @@
 
 Supported Splunk Versions:
 
-  - Splunk 4.1 is now required. 4.1.4 or higher is highly recommended.
+  - Splunk 6 is now required.
+    Splunk >= 6.4 may be needed for some functionality.
 
   - Agent management is new and has several limitations, including:
       - Does not run on Windows due to the limitations of pexpect
