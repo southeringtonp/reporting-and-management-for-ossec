@@ -3,3 +3,4 @@
 *.pyc
 *.swp
 ossec/log/*
+ossec/metadata/local.meta

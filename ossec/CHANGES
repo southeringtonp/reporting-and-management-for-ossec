@@ -1,7 +1,46 @@
+Version 1.1.85
+---------------------------------------
+
+- Re-scoped Navigation menu to avoid clobbering menus in other app
+  views.
+
+- Updated rule group lookup table with rules from OSSEC 2.6 beta
+
+- Modified rule group lookup generating script to accept rules directory
+  as a parameter
+
+- Added indexing of Active Response logs when Splunk is installed on the
+  OSSEC server
+
+- Fixed an issue in the Agent Management view that could cause the
+  list of managed servers to appear empty.
+
+- Removed local.meta file that had accidentally slipped into the
+  distribution.
+
+- Corrected CSS formatting in Agent Coverage view.
+
+
+Version 1.1.84
+---------------------------------------
+
+- Corrected stats calculation for Top 10 views
+
+- Added triggers entry in app.conf
+
+- Resolved a display error affecting File Integrity view with Splunk 4.2
+
+- Added workflow action for VirusTotal hash lookups
+
+- Minor bugfixes
+
+
+
 Version 1.1.81
 ---------------------------------------
 
 - Fixed cron_schedule entry for lookup table generating search
+
 - Fixed startup warnings for Splunk 4.2
 
 

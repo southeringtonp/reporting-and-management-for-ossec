@@ -4,7 +4,7 @@
 # Python abstraction library for OSSEC Agent Management
 #
 # Written as part of Splunk for OSSEC,
-# Copyright (c) 2010, Paul Southerington
+# Copyright (c) 2010-2011, Paul Southerington
 #
 ############################################################
 import sys

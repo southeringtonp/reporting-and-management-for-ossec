@@ -15,7 +15,8 @@ Limitations from Splunk Free Version:
     run the 'OSSEC - Rebuild OSSEC Server Lookup Table' saved
     search after installing.
 
-  - Use of Summary Indexing requires a Splunk Enterprise license.
+  - Scheduled searches for summary indexing require a
+    Splunk Enterprise License.
 
 
 User Interface Issues:

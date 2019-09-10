@@ -33,7 +33,7 @@
 					<param name="ossec_server">
 						<param name="fillOnEmpty">True</param>
 						<param name="prefix">ossec_server=</param>
-						<param name="value">$target$</param>
+						<param name="value">"$target$"</param>
 					</param>
 				</param>
 			</param>
@@ -183,7 +183,8 @@
 							http://www.splunk.com/support/forum:SplunkDev/3788
 					-->
 					<param name="earliest">-1d</param>
-
+					<param name="search">eventtype=ossec $ossec_server$ integrity NOT tag::eventtype=noise | dedup reporting_host | sort reporting_host</param>
+					<param name="sortKey">reporting_host</param>
 					<param name="staticFieldsToDisplay">
 						<list>
 							<param name="label">All Reporting Hosts</param>
@@ -191,28 +192,40 @@
 							<param name="selected">True</param>
 						</list>
 					</param>
-					
-					<param name="search">eventtype=ossec $ossec_server$ integrity NOT tag::eventtype=noise | dedup reporting_host | sort reporting_host</param>
-					<param name="sortKey">reporting_host</param>
 					<param name="searchFieldsToDisplay">
 						<list>
 							<param name="label">reporting_host</param>
 							<param name="value">reporting_host</param>
 						</list>
-					</param>
+					</param>					
+
 					
 					<module name="ConvertToIntention">
 						<param name="settingToConvert">reportinghost_setting</param>
 						<param name="intention">
+              <!-- Without quotes around $target$, Splunk 4.2 may display an error:
+                      Error in 'search' command: Unable to parse the search: Comparison has an invalid term on the left hand side.
+              -->
 							<param name="name">stringreplace</param>
 							<param name="arg">
 								<param name="reporting_host">
-									<param name="fillOnEmpty">True</param>
-									<param name="prefix">reporting_host=</param>
-									<param name="value">$target$</param>
+									<param name="fillOnEmpty">False</param>
+									<param name="prefix"> reporting_host=</param>
+									<param name="value">"$target$"</param>
 								</param>
 							</param>
+              
+              <!-- Using stringreplace here causes the following under Splunk 4.2:
+                    Error in 'search' command: Unable to parse the search: Comparison has an invalid term on the left hand side.
+              -->
+              <!--
+              <param name="name">addterm</param>
+              <param name="arg">
+                <param name="reporting_host">$target$</param>
+              </param>
+              -->
 						</param>
+            
 
 						
 						

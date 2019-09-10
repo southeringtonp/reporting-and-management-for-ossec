@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/opt/splunk/bin/python
 ############################################################
 ############################################################
 #
@@ -29,10 +29,11 @@
 import os
 import re
 import sys
+import getopt
 
 
 # Path to the OSSEC rules directory, e.g., /var/ossec/rules/
-OSSEC_RULES_DIR = "/var/ossec/rules/"
+DEFAULT_RULES_DIR = "/var/ossec/rules/"
 
 
 # Each of these should be a filename, or set to None to
@@ -47,6 +48,19 @@ OUTPUT_EVENTTYPES   = None
 # Changes should not be needed beyond this point.
 ############################################################
 
+try:
+    opts,args = getopt.getopt(sys.argv[1:], 'r:', ['rules'])
+except getopt.GetoptError, err:
+    print str(err)
+    sys.exit(2)
+
+rules_dir = DEFAULT_RULES_DIR
+output_file = OUTPUT_LOOKUP_TABLE
+for o,a in opts:
+    if o in [ '-r', '--rules' ]:
+        rules_dir = a
+
+
 re_global_group = re.compile(  '<group name="(.*?)"'  )
 re_local_group = re.compile(  '<group>(.*?)</group>'  )
 re_rule  = re.compile(  '<rule.*id="(\d+)"'     )
@@ -56,13 +70,14 @@ re_rule  = re.compile(  '<rule.*id="(\d+)"'     )
 rule_to_groups = {}
 group_to_rules = {}
 
+
 # Loop through all rule files, populating the mappings from
 # rule to group and vice versa
-for filename in os.listdir(OSSEC_RULES_DIR):
+for filename in os.listdir(rules_dir):
 	if filename[-4:].lower() != '.xml':
 		continue
 
-        f = open(os.path.join(OSSEC_RULES_DIR, filename))
+        f = open(os.path.join(rules_dir, filename))
 
 	rule_id = None
 	localGroups = []

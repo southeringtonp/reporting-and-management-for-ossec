@@ -17,8 +17,16 @@
 	<!-- Search Controls -->
 	<module name="SearchSelectLister" layoutPanel="splSearchControls-inline">
 		<param name="settingToCreate">host_setting</param>
-		<param name="search">|inputlookup lookup_ossec_servers</param>
+    <!-- Moving away from wildcards in the lookup table... -->
+		<param name="search">|inputlookup lookup_ossec_servers | search description!="All OSSEC Servers"</param>
 		<param name="label">OSSEC Server</param>
+    <param name="staticFieldsToDisplay">
+      <list>
+        <param name="label">All OSSEC Servers</param>
+        <param name="value">*</param>
+        <param name="selected">True</param>
+      </list>
+    </param>
 		<param name="searchFieldsToDisplay">
 			<list>
 				<param name="label">description</param>
@@ -66,9 +74,13 @@
 						<param name="intention">
 							<param name="name">stringreplace</param>
 							<param name="arg">
-								<param name="serverName">
-									<param name="value">ossec_server="$target$"</param>
-								</param>
+                <param name="serverName">
+                  <param name="fillOnEmpty">False</param>
+                  <param name="prefix">ossec_server="</param>
+                  <param name="value">$target$</param>
+                  <param name="suffix">"</param>
+                  <param name="default">*</param>
+                </param>
 							</param>
 						</param>
 						
@@ -107,16 +119,20 @@
 							
 							<!-- Top Signatures -->
 							<module name="HiddenPostProcess" layoutPanel="panel_row2_col1">
-								<param name="search">top signature limit=10</param>
+                <param name="search">stats sum(count) as count by signature | sort - count</param>
 								<module name="ConvertToIntention">
 									<!-- The original intention was consumed by the HiddenSearch above, so we need to re-apply it -->
 									<param name="settingToConvert">host_setting</param>
 									<param name="intention">
 										<param name="name">stringreplace</param>
 										<param name="arg">
-											<param name="serverName">
-												<param name="value">ossec_server="$target$"</param>
-											</param>
+                      <param name="serverName">
+                        <param name="fillOnEmpty">False</param>
+                        <param name="prefix">ossec_server="</param>
+                        <param name="value">$target$</param>
+                        <param name="suffix">"</param>
+                        <param name="default">*</param>
+                      </param>
 										</param>
 									</param>
 								
@@ -166,16 +182,20 @@
 							
 							<!-- Top Severities -->
 							<module name="HiddenPostProcess" layoutPanel="panel_row3_col1">
-								<param name="search">top severity limit=10</param>
+                <param name="search">stats sum(count) as count by severity | sort - count</param>
 								<module name="ConvertToIntention">
 									<!-- The original intention was consumed by the HiddenSearch above, so we need to re-apply it -->
 									<param name="settingToConvert">host_setting</param>
 									<param name="intention">
 										<param name="name">stringreplace</param>
 										<param name="arg">
-											<param name="serverName">
-												<param name="value">ossec_server="$target$"</param>
-											</param>
+                      <param name="serverName">
+                        <param name="fillOnEmpty">False</param>
+                        <param name="prefix">ossec_server="</param>
+                        <param name="value">$target$</param>
+                        <param name="suffix">"</param>
+                        <param name="default">*</param>
+                      </param>
 										</param>
 									</param>
 								
@@ -225,16 +245,20 @@
 							
 							<!-- Top Reporting Hosts -->
 							<module name="HiddenPostProcess" layoutPanel="panel_row4_col1">
-								<param name="search">top reporting_host limit=10</param>
+                <param name="search">stats sum(count) as count by reporting_host | sort - count</param>
 								<module name="ConvertToIntention">
 									<!-- The original intention was consumed by the HiddenSearch above, so we need to re-apply it -->
 									<param name="settingToConvert">host_setting</param>
 									<param name="intention">
 										<param name="name">stringreplace</param>
 										<param name="arg">
-											<param name="serverName">
-												<param name="value">ossec_server="$target$"</param>
-											</param>
+                      <param name="serverName">
+                        <param name="fillOnEmpty">False</param>
+                        <param name="prefix">ossec_server="</param>
+                        <param name="value">$target$</param>
+                        <param name="suffix">"</param>
+                        <param name="default">*</param>
+                      </param>
 										</param>
 									</param>
 								
@@ -286,16 +310,20 @@
 							
 							<!-- Top Users -->
 							<module name="HiddenPostProcess" layoutPanel="panel_row5_col1">
-								<param name="search">top user limit=10</param>
+                <param name="search">stats sum(count) as count by user | sort - count</param>
 								<module name="ConvertToIntention">
 									<!-- The original intention was consumed by the HiddenSearch above, so we need to re-apply it -->
 									<param name="settingToConvert">host_setting</param>
 									<param name="intention">
 										<param name="name">stringreplace</param>
 										<param name="arg">
-											<param name="serverName">
-												<param name="value">ossec_server="$target$"</param>
-											</param>
+                      <param name="serverName">
+                        <param name="fillOnEmpty">False</param>
+                        <param name="prefix">ossec_server="</param>
+                        <param name="value">$target$</param>
+                        <param name="suffix">"</param>
+                        <param name="default">*</param>
+                      </param>
 										</param>
 									</param>
 								

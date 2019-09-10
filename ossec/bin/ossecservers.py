@@ -26,10 +26,8 @@ try:
 
         if 'MANAGE_AGENTS' in cfg[server]:
             row['managed'] = 1
-            #row['manage_agents'] = 1
         else:
             row['managed'] = 0
-            #row['manage_agents'] = 0
 
 
         results.append(row)
