@@ -1,4 +1,4 @@
-#!/opt/splunk/bin/python
+#!/opt/splunk/bin/python3
 ############################################################
 ############################################################
 #
@@ -29,12 +29,12 @@
 import os
 import re
 import sys
+import csv
 import getopt
 
 
 # Path to the OSSEC rules directory, e.g., /var/ossec/rules/
 DEFAULT_RULES_DIR = "/var/ossec/rules/"
-
 
 # Each of these should be a filename, or set to None to
 # suppress generation of that file
@@ -50,8 +50,8 @@ OUTPUT_EVENTTYPES   = None
 
 try:
     opts,args = getopt.getopt(sys.argv[1:], 'r:', ['rules'])
-except getopt.GetoptError, err:
-    print str(err)
+except getopt.GetoptError as err:
+    print(str(err))
     sys.exit(2)
 
 rules_dir = DEFAULT_RULES_DIR
@@ -65,7 +65,6 @@ re_global_group = re.compile(  '<group name="(.*?)"'  )
 re_local_group = re.compile(  '<group>(.*?)</group>'  )
 re_rule  = re.compile(  '<rule.*id="(\d+)"'     )
 
-
 # Two dictionaries for mapping back and forth
 rule_to_groups = {}
 group_to_rules = {}
@@ -76,15 +75,16 @@ group_to_rules = {}
 for filename in os.listdir(rules_dir):
     if filename[-4:].lower() != '.xml':
         continue
+    print('Converting', filename)
 
-        f = open(os.path.join(rules_dir, filename))
+    f = open(os.path.join(rules_dir, filename))
 
     rule_id = None
     localGroups = []
     globalGroups = []
     
-        for line in f:
-                l = line.lower().strip()
+    for line in f:
+        l = line.lower().strip()
 
         if l[:8] == '</group>':
             # End of a global group section
@@ -107,7 +107,6 @@ for filename in os.listdir(rules_dir):
             localGroups = []
 
         else:
-
             # Is this a rule id?
             m = re_rule.match(l)
             if m != None:
@@ -129,14 +128,15 @@ for filename in os.listdir(rules_dir):
 
 # Now we have everything in memory. Output the lookup table.
 if OUTPUT_LOOKUP_TABLE != None:
-    sorted = rule_to_groups.keys()
+    sorted = list(rule_to_groups.keys())
     sorted.sort()
     f = open(OUTPUT_LOOKUP_TABLE, "w")
-    print >>f, '"rule_number","ossec_group"'
+    
+    print('"rule_number","ossec_group"', file=f)
     for rule_id in sorted:
         for group in rule_to_groups[rule_id]:
-            print >>f, '"' + rule_id.strip() +'","' + group.strip() + '"'
-        
+            line = '"%s","%s"' % (rule_id.strip(), group.strip())
+            print(line, file=f)
 
 
 # Output the eventtype list
@@ -144,17 +144,16 @@ if OUTPUT_EVENTTYPES != None:
     sorted = group_to_rules.keys()
     sorted.sort()
     f = open("eventtypes-ossec.conf", "w")
-    print >>f, "############################################################"
-    print >>f, "# OSSEC Eventtypes for Splunk"
-    print >>f, "# Automatically generated -- modify at your own risk"
-    print >>f, "############################################################"
-    print >>f
+    print("############################################################", file=f)
+    print("# OSSEC Eventtypes for Splunk", file=f)
+    print("# Automatically generated -- modify at your own risk", file=f)
+    print("############################################################", file=f)
+    print('', file=f)
     for group in sorted:
         eventtype = "[ossec_" + group.strip() + "]"
         search = " OR rule_number=".join(group_to_rules[group])
         search = "search=sourcetype=ossec (rule_number=" + search + ")"
 
-        print >>f, eventtype
-        print >>f, search
-        print >>f
-
+        print(eventtype, file=f)
+        print(search, file=f)
+        print('', file=f)
