@@ -19,10 +19,10 @@ SSH_KEY_FILE=
 
 if [ "$OSSEC_SERVER" = "" ]
 then
-	# Easiest method - Splunk installed on OSSEC server
-	$OSSEC_COMMAND | grep Name
+    # Easiest method - Splunk installed on OSSEC server
+    $OSSEC_COMMAND | grep Name
 else
-	# Remote server, using SSH and sudo
-	ssh $OSSEC_SERVER -l $OSSEC_USER -i $SSH_KEY_FILE $OSSEC_COMMAND | grep Name
+    # Remote server, using SSH and sudo
+    ssh $OSSEC_SERVER -l $OSSEC_USER -i $SSH_KEY_FILE $OSSEC_COMMAND | grep Name
 fi
 
